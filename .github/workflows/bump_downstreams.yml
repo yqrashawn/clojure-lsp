@@ -1,15 +1,16 @@
 name: Bump downstreams
 
 on:
-  workflow_run:
-    workflows: ["Release"]
-    types:
-      - completed
+  push:
+  # workflow_run:
+  #   workflows: ["Release"]
+  #   types:
+  #     - completed
 
 jobs:
   release-clojars:
     name: Release artifact to Clojars
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +35,7 @@ jobs:
 
   bump-homebrew-formula:
     name: Bump Homebrew formula
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
@@ -81,7 +82,7 @@ jobs:
 
   bump-setup-clojure-lsp:
     name: Bump setup-clojure-lsp Github Action
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -107,7 +108,7 @@ jobs:
   bump-lein-clojure-lsp:
     name: Bump lein-clojure-lsp
     needs: [release-clojars]
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -133,7 +134,7 @@ jobs:
   nixpkgs-update:
     name: Bump nixpkgs
     needs: [release-clojars]
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
